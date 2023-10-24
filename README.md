@@ -6,4 +6,6 @@
     - ChatGPT-ga ühendatud jurgas
     - krüpto bot
     - PYGAME ON NO-GO
-    - 
+    - enda krüpteeritud chat app
+    - to-do list
+    
