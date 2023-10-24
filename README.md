@@ -8,5 +8,3 @@
     - PYGAME ON NO-GO
     - enda krüpteeritud chat app
     - to-do list
-    - mihklile suumuhv
-    
