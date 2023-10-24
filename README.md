@@ -1,4 +1,4 @@
 # Projekt-Kaje
 
 #Esmased ideed
-  -sauna maksumuse arvutamine
+  - sauna maksumuse arvutamine
