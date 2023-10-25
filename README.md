@@ -37,3 +37,9 @@ Plaan on teha programm, mis kasutab Spotify API ja teeb ülevaate sinu kuulatud 
 #Kui antud projekt osutub liiga keeruliseks, siis teeme analoogse eelarve haldamise programmi, nagu näites toodud oli.
 
 ![Alt text](image.png)
+
+
+
+
+-----------------------------------------------------
+#Selleks, et artisti ID saada, on vaja artisti teada
