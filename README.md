@@ -30,4 +30,8 @@
     -Andmete hanikimine (Mihkel)
     -Andmete töötlus (Nurmik)
     -GUI (Mihkel, Nurmik)
-   
+
+#idee ja eesmärgi lühikirjeldus
+Plaan on teha programm, mis kasutab Spotify API ja teeb ülevaate sinu kuulatud muusikast. Lisaks annab ka soovitusi, mida kuulata. Kasutame VSCode, GitHub ja GUI jaoks Tkinter. 
+
+#Kui antud projekt osutub liiga keeruliseks, siis teeme analoogse eelarve haldamise programmi, nagu näites toodud oli.
