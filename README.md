@@ -30,4 +30,4 @@
     -Andmete hanikimine (Mihkel)
     -Andmete töötlus (Nurmik)
     -GUI (Mihkel, Nurmik)
-    
+   tr 
