@@ -24,3 +24,10 @@
     -top songs this week
     -vali žanr ja tee sellega top 100 playlist
     -GUI (Tkinter)
+
+
+#tööjaotus
+    -Andmete hanikimine (Mihkel)
+    -Andmete töötlus (Nurmik)
+    -GUI (Mihkel, Nurmik)
+    
