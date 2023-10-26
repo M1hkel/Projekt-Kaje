@@ -3,11 +3,12 @@ from dotenv import load_dotenv
 import os
 import base64
 from requests import post, get
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+
 
 load_dotenv()
 
-client_id = os.getenv("CLIENT_ID")
-client_secret = os.getenv("CLIENT_SECRET")
 
 def get_token():
     auth_string = client_id + ":" + client_secret
@@ -24,6 +25,14 @@ def get_token():
     json_result = json.loads(result.content)
     token = json_result["access_token"]
     return token
+
+
+client_id = os.getenv("CLIENT_ID")
+client_secret = os.getenv("CLIENT_SECRET")
+client_user_name = os.getenv("USER_NAME")
+redirect_uri = os.getenv("REDIRECT_URI")
+token = get_token()
+
 
 
 def get_auth_header(token):
@@ -47,15 +56,34 @@ def search_for_artist(token, artist_name):
 
 def get_songs_by_artist(token, artist_id):
     #lõpus annad riigi kust otsid top tracke
-    url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country=EE"
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country=US"
     headers = get_auth_header(token)
     result = get(url, headers=headers)
     json_result = json.loads(result.content)["tracks"]
     return json_result
 
 
-token = get_token()
-result = search_for_artist(token, "mesabby")
+def get_auth(redirect_uri, client_id, client_secret):
+    sp_oauth = SpotifyOAuth(client_id, client_secret, redirect_uri, scope='user-library-read user-library-modify playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public')
+
+    token_info = sp_oauth.get_cached_token()
+
+    if not token_info:
+        auth_url = sp_oauth.get_authorize_url()
+        print("Open the following URL in your browser:")
+        print(auth_url)
+        response = input("Enter the URL you were redirected to: ")
+    
+        token_info = sp_oauth.get_access_token(response)
+
+    if token_info:
+        token = token_info['access_token']
+
+    
+
+
+
+result = search_for_artist(token, "eminem")
 #artisti nimi
 #print(result["name"])
 
@@ -63,9 +91,22 @@ result = search_for_artist(token, "mesabby")
 artist_id = result["id"]
 songs = get_songs_by_artist(token, artist_id)
 
-
-for idx, song in enumerate(songs):
-    print(f"{idx + 1}. {song['name']}")
-
+#for idx, song in enumerate(songs):
+    #print(f"{idx + 1}. {song['name']}")
 
 
+#get_auth(redierct_uri, client_id, client_secret)
+def print_playlists(client_id, client_secret, redirect_uri):
+    # Scope defines the permissions you need
+    scope = 'playlist-read-private playlist-read-collaborative'
+
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+
+    # Now you have a Spotify instance with access to your playlists
+
+    playlists = sp.current_user_playlists()
+    for playlist in playlists['items']:
+        print(playlist['name'])
+
+
+print_playlists(client_id, client_secret, redirect_uri)
