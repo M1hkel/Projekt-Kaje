@@ -79,9 +79,38 @@ def get_auth(redirect_uri, client_id, client_secret):
     if token_info:
         token = token_info['access_token']
 
-    
+def print_playlists(client_id, client_secret, redirect_uri):
+    # Scope defines the permissions you need
+    scope = 'playlist-read-private playlist-read-collaborative'
+
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+
+    # Now you have a Spotify instance with access to your playlists
+
+    playlists = sp.current_user_playlists()
+    for playlist in playlists['items']:
+        print(playlist['name'])
 
 
+def get_playlist_tracks(playlist_name):
+    scope = 'playlist-read-private playlist-read-collaborative'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+    playlists = sp.current_user_playlists()
+    playlist_id = None
+    for playlist in playlists['items']:
+        if playlist['name'] == playlist_name:
+            playlist_id = playlist['id']
+            break
+    # Check if the playlist was found
+    if playlist_id:
+        # Retrieve the tracks within the playlist
+        playlist_tracks = sp.playlist_tracks(playlist_id)
+
+        # Print the track names
+        for track in playlist_tracks['items']:
+            print(track['track']['name'])
+    else:
+        print(f"Playlist '{playlist_name}' not found.")
 
 result = search_for_artist(token, "eminem")
 #artisti nimi
@@ -96,17 +125,8 @@ songs = get_songs_by_artist(token, artist_id)
 
 
 #get_auth(redierct_uri, client_id, client_secret)
-def print_playlists(client_id, client_secret, redirect_uri):
-    # Scope defines the permissions you need
-    scope = 'playlist-read-private playlist-read-collaborative'
-
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
-
-    # Now you have a Spotify instance with access to your playlists
-
-    playlists = sp.current_user_playlists()
-    for playlist in playlists['items']:
-        print(playlist['name'])
 
 
-print_playlists(client_id, client_secret, redirect_uri)
+#print_playlists(client_id, client_secret, redirect_uri)
+
+#get_playlist_tracks("Maskita ei teeks")
