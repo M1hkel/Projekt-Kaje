@@ -112,6 +112,16 @@ def get_playlist_tracks(playlist_name):
     else:
         print(f"Playlist '{playlist_name}' not found.")
 
+
+def get_listening_history():
+    # Initialize Spotipy
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='your_client_id', client_secret='your_client_secret', redirect_uri='http://localhost:8888/callback', scope='user-read-recently-played'))
+
+    # Fetch your recently played tracks
+    history = sp.current_user_recently_played()
+    return history
+
+
 result = search_for_artist(token, "eminem")
 #artisti nimi
 #print(result["name"])
