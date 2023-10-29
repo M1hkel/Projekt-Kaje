@@ -43,3 +43,4 @@ Plaan on teha programm, mis kasutab Spotify API ja teeb ülevaate sinu kuulatud 
 
 -----------------------------------------------------
 #Selleks, et artisti ID saada, on vaja artisti teada
+#Playlisti sisu saamiseks sisesta playlisti nimi

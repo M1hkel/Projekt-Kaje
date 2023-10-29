@@ -115,20 +115,20 @@ def get_playlist_tracks(playlist_name):
 
 def get_listening_history():
     # Initialize Spotipy
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='your_client_id', client_secret='your_client_secret', redirect_uri='http://localhost:8888/callback', scope='user-read-recently-played'))
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='your_client_id', client_secret='your_client_secret', redirect_uri='http://localhost:3000/callback', scope='user-read-recently-played'))
 
     # Fetch your recently played tracks
     history = sp.current_user_recently_played()
     return history
 
 
-result = search_for_artist(token, "eminem")
+#result = search_for_artist(token, "eminem")
 #artisti nimi
 #print(result["name"])
 
 #artisti is
-artist_id = result["id"]
-songs = get_songs_by_artist(token, artist_id)
+#artist_id = result["id"]
+#songs = get_songs_by_artist(token, artist_id)
 
 #for idx, song in enumerate(songs):
     #print(f"{idx + 1}. {song['name']}")
@@ -140,3 +140,5 @@ songs = get_songs_by_artist(token, artist_id)
 #print_playlists(client_id, client_secret, redirect_uri)
 
 #get_playlist_tracks("Maskita ei teeks")
+
+
