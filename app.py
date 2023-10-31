@@ -34,7 +34,6 @@ redirect_uri = os.getenv("REDIRECT_URI")
 token = get_token()
 
 
-
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
@@ -121,6 +120,41 @@ def get_listening_history():
     history = sp.current_user_recently_played()
     return history
 
+
+def create_recommendation_playlist(client_id, client_secret, redirect_uri, playlist_name, num_tracks=10, target_seed_track=None):
+    # Scope defines the permissions your app needs
+    scope = 'playlist-modify-public playlist-modify-private user-library-read'
+
+    # Initialize the Spotify client with authentication
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+
+    # Get the user's ID
+    user_id = sp.current_user()['id']
+
+    # Create a new playlist
+    playlist = sp.user_playlist_create(user_id, playlist_name, public=True)
+
+    # If a seed track is provided, use it to generate recommendations
+    seed_tracks = [target_seed_track] if target_seed_track else []
+
+    # Generate recommendations based on the seed tracks
+    recommendations = sp.recommendations(seed_tracks=seed_tracks, limit=num_tracks)
+
+    # Extract the URIs of the recommended tracks
+    track_uris = [track['uri'] for track in recommendations['tracks']]
+
+    # Add the recommended tracks to the newly created playlist
+    sp.user_playlist_add_tracks(user_id, playlist['id'], track_uris)
+
+    print(f"Created a playlist '{playlist_name}' with {len(track_uris)} recommended tracks.")
+
+
+
+
+#target_seed_track = 'spotify:track:YOUR_SEED_TRACK_URI'
+target_seed_track = 'spotify:track:3HeOOjms1LHV4U91lKcbwd'
+
+create_recommendation_playlist(client_id, client_secret, redirect_uri, 'My Recommended Playlist', target_seed_track=target_seed_track)
 
 #result = search_for_artist(token, "eminem")
 #artisti nimi
