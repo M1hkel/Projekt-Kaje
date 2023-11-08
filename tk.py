@@ -50,12 +50,12 @@ anotherbtn = tk.Button(root, text = "TEST")
 anotherbtn.place(x = 200, y = 200, height= 100, width = 100)
 root.mainloop()
 """
-
+"""
 class myGui:
     def __init__(self):
         self.root = tk.Tk()
 
-        self.label= tk.Label(self.root, text = "your message", font = ("Arial", 16))
+        self.label= tk.Label(self.root, text = "Write here", font = ("Arial", 16))
         self.label.pack(padx = 10, pady = 10)
 
         self.textbox = tk.Text(self.root, height = 1, font = ("Arial", 16))
@@ -81,4 +81,61 @@ class myGui:
             
 
 myGui()
+"""
+#Markuse Öpe
+"""
+root = tk.Tk()
+
+root.geometry("500x500")
+root.title("Minu esimene GUI")
+
+label = tk.Label(root, text= "Sisesta oma lemmiklugu!", font = ("Arial", 18))
+label.pack(padx= 10, pady = 10)
+
+textbox = tk.Text(root, height = 2, font = ("Arial", 16))
+textbox.pack(padx = 10, pady = 10)
+
+button = tk.Button(root, text = "Vajuta siia!", font =("Arial", 18))
+button.pack(padx = 10, pady = 10)
+
+root.mainloop()
+"""
+class myGui:
+    def __init__(self):
+        self.root = tk.Tk()
+        #self.root.configure(bg="lightblue")
+
+        self.label= tk.Label(self.root, text = "Parimad uued ja vanad hitid!", font = ("Arial", 16))
+        self.label.pack(padx = 10, pady = 10)
+
+        self.label1= tk.Label(self.root, text = "Palun sisesta oma lemmiklugu:", font = ("Arial", 14), anchor="w", justify="left", width=70)
+        self.label1.pack(padx = 10, pady = 10)
+
+        self.textbox1 = tk.Text(self.root, height = 1, font = ("Arial", 14))
+        self.textbox1.pack(padx= 10, pady= 10)
+
+        self.label2= tk.Label(self.root, text = "Palun sisesta mitu lugu sa oma playlisti soovid:", font = ("Arial", 14), anchor="w", justify="left", width=70)
+        self.label2.pack(padx = 10, pady = 10)
+
+        self.textbox2 = tk.Text(self.root, height = 1, font = ("Arial", 14))
+        self.textbox2.pack(padx= 10, pady= 10)
+        #checkbuttoni muutuja, mis omandab vastava väärtuse.
+        self.check_state = tk.IntVar()
+
+        self.check = tk.Checkbutton(self.root, text  = "Näita uut akent", font = ("Arial", 14), variable= self.check_state)#omistab vastava väärtuse
+        self.check.pack(padx= 10, pady= 10)
+
+        self.button = tk.Button(self.root, text = "Genereeri", font = ("Arial", 14), command = self.show_message)#ei kutsu funktsiooni vaid lihtsalt anname selle parameetri kui vajutame nuppu.
+        self.button.pack(padx=10,pady=10)
+
+        self.root.mainloop()
+
+    def show_message(self):
+        if self.check_state.get() == 0:#0 kui ei ole klikitud
+            print(self.textbox1.get("1.0", tk.END))#string 1.0 alguseks kuni lõpuni, kui tahad kogu sisu.
+        else:#kui on klikitud
+            messagebox.showinfo(title = "Sõnum", message=self.textbox1.get("1.0", tk.END))
+myGui()
+
+#Vaja kohta kuhu laul sisse kirjutada. Reference jaoks. Kui palju laule soovid ja väljundiks link selle
 
