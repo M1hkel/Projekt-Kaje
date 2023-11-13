@@ -144,19 +144,8 @@ def create_recommendation_playlist(client_id, client_secret, redirect_uri, playl
     track_uris = [track['uri'] for track in recommendations['tracks']]
 
     return track_uris
-    # Add the recommended tracks to the newly created playlist
-    #sp.user_playlist_add_tracks(user_id, playlist['id'], track_uris)
-
-    #print(f"Created a playlist '{playlist_name}' with {len(track_uris)} recommended tracks.")
-
-
-
-#TÖÖTAB
-#target_seed_track = 'spotify:track:YOUR_SEED_TRACK_URI'
-#target_seed_track = 'spotify:track:4rXLjWdF2ZZpXCVTfWcshS'
-
-#create_recommendation_playlist(client_id, client_secret, redirect_uri, 'My Recommended Playlist', target_seed_track=target_seed_track)
-
+    
+#fuck yeah
 def create_recommendation_based_based_on_history():
     history = get_listening_history()
     
@@ -178,25 +167,3 @@ def create_recommendation_based_based_on_history():
             sp.user_playlist_add_tracks(user_id, playlist["id"], create_recommendation_playlist(client_id, client_secret, redirect_uri, playlist_name, num_tracks=2, target_seed_track=target_seed_track))
 
 create_recommendation_based_based_on_history()
-
-
-#result = search_for_artist(token, "eminem")
-#artisti nimi
-#print(result["name"])
-
-#artisti is
-#artist_id = result["id"]
-#songs = get_songs_by_artist(token, artist_id)
-
-#for idx, song in enumerate(songs):
-    #print(f"{idx + 1}. {song['name']}")
-
-
-#get_auth(redierct_uri, client_id, client_secret)
-
-
-#print_playlists(client_id, client_secret, redirect_uri)
-
-#get_playlist_tracks("Maskita ei teeks")
-
-
