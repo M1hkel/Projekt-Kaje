@@ -136,7 +136,7 @@ def create_recommendation_playlist(client_id, client_secret, redirect_uri, playl
 
     # If a seed track is provided, use it to generate recommendations
     seed_tracks = [target_seed_track] if target_seed_track else []
-
+    
     # Generate recommendations based on the seed tracks
     recommendations = sp.recommendations(seed_tracks=seed_tracks, limit=num_tracks)
 
@@ -152,46 +152,50 @@ def create_recommendation_playlist(client_id, client_secret, redirect_uri, playl
 
 #TÖÖTAB
 #target_seed_track = 'spotify:track:YOUR_SEED_TRACK_URI'
-#target_seed_track = 'spotify:track:0jNR7y6nWhEf2gjy8pT8oG'
+target_seed_track = 'spotify:track:4rXLjWdF2ZZpXCVTfWcshS'
 
 #create_recommendation_playlist(client_id, client_secret, redirect_uri, 'My Recommended Playlist', target_seed_track=target_seed_track)
 
 #MUST FIX
+
 def create_recommendation_playlist_from_history(client_id, client_secret, redirect_uri, playlist_name, num_tracks=10):
     # Scope defines the permissions your app needs
     scope = 'playlist-modify-public playlist-modify-private user-library-read user-read-recently-played'
 
-    # Initialize the Spotify client with authentication
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+    try:
+        # Initialize the Spotify client with authentication
+        sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
 
-    # Get the user's ID
-    user_id = sp.current_user()['id']
+        # Get the user's ID
+        user_id = sp.current_user()['id']
 
-    # Fetch your recently played tracks
-    history = sp.current_user_recently_played()
-    seed_tracks = []
+        # Fetch the user's recently played tracks
+        history = sp.current_user_recently_played()
+        seed_tracks = [item['track']['uri'] for item in history['items']]
 
-    # Extract the URIs of the tracks in your listening history
-    for item in history['items']:
-        track = item['track']
-        seed_tracks.append(track['uri'])
-        print(seed_tracks)
-    # Create a new playlist
-    playlist = sp.user_playlist_create(user_id, playlist_name, public=False)
+        # Create a new private playlist
+        playlist = sp.user_playlist_create(user_id, playlist_name, public=False)
 
-    # Generate recommendations based on your listening history (seed tracks)
-    recommendations = sp.recommendations(seed_tracks=seed_tracks, limit=num_tracks)
+        # Generate recommendations based on your listening history (seed tracks)
+        recommendations = sp.recommendations(seed_tracks=seed_tracks, limit=30)
+
+        # Extract the URIs of the recommended tracks
+        track_uris = [track['uri'] for track in recommendations['tracks']]
+
+        # Add the recommended tracks to the newly created playlist
+        sp.user_playlist_add_tracks(user_id, playlist['id'], track_uris)
+
+        print(f"Created a recommended playlist '{playlist_name}' with {len(track_uris)} tracks from your listening history.")
     
-    # Extract the URIs of the recommended tracks
-    track_uris = [track['uri'] for track in recommendations['tracks']]
-
-    # Add the recommended tracks to the newly created playlist
-    sp.user_playlist_add_tracks(user_id, playlist['id'], track_uris)
-
-    print(f"Created a recommended playlist '{playlist_name}' with {len(track_uris)} tracks from your listening history.")
-
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 #create_recommendation_playlist_from_history(client_id, client_secret, redirect_uri, "recommended playlist", num_tracks=10)
+
+def create_recommendation_based_based_on_history():
+    history = get_listening_history()
+    print(history["items"])
+create_recommendation_based_based_on_history()
 
 #result = search_for_artist(token, "eminem")
 #artisti nimi
