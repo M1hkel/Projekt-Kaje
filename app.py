@@ -104,12 +104,7 @@ def get_listening_history():
 
 
 def create_recommendation_playlist(client_id, client_secret, redirect_uri, num_tracks=10, target_seed_track=None):
-    # Scope defines the permissions your app needs
-    #scope = 'playlist-modify-public playlist-modify-private user-library-read'
-
-    # Initialize the Spotify client with authentication
-    #sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
-
+    
     # If a seed track is provided, use it to generate recommendations
     seed_tracks = [target_seed_track] if target_seed_track else []
     
