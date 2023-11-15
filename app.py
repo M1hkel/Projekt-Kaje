@@ -31,10 +31,16 @@ client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 client_user_name = os.getenv("USER_NAME")
 redirect_uri = os.getenv("REDIRECT_URI")
+"""
+client_id = "0df2d3a6174e424aacdc49f2476ab80c"
+client_secret = "a20a922e0cd4495187cd0778fdab0543"
+client_user_name = "Karl Laine"
+redirect_uri = "http://localhost:3000"
+"""
 token = get_token()
 
 scope = 'playlist-modify-public playlist-modify-private user-library-read'
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope, requests_timeout=20))
 
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
@@ -122,7 +128,7 @@ def create_recommendation_playlist(client_id, client_secret, redirect_uri, num_t
 
 
 #fuck yeah
-def create_recommendation_based_based_on_history():
+def create_recommendation_based_on_history():
     history = get_listening_history()
     all = get_all_songs()
     #scope = 'playlist-modify-public playlist-modify-private user-library-read'
@@ -144,5 +150,5 @@ def create_recommendation_based_based_on_history():
                 laulud = create_recommendation_playlist(client_id, client_secret, redirect_uri, num_tracks=2, target_seed_track=target_seed_track)
             sp.user_playlist_add_tracks(user_id, playlist["id"], laulud)
 
-create_recommendation_based_based_on_history()
+create_recommendation_based_on_history()
 
