@@ -31,12 +31,12 @@ client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 client_user_name = os.getenv("USER_NAME")
 redirect_uri = os.getenv("REDIRECT_URI")
-"""
-client_id = "0df2d3a6174e424aacdc49f2476ab80c"
-client_secret = "a20a922e0cd4495187cd0778fdab0543"
-client_user_name = "Karl Laine"
+
+client_id = "af77a1c6546946ad9d3d108c9121e6aa"
+client_secret = "d4b1362cf2444e3aac9090e4ecd00383"
+client_user_name = "rainuzki"
 redirect_uri = "http://localhost:3000"
-"""
+
 token = get_token()
 
 scope = 'playlist-modify-public playlist-modify-private user-library-read'
@@ -63,12 +63,7 @@ def get_auth(redirect_uri, client_id, client_secret):
         token = token_info['access_token']
 
 def get_playlists(client_id, client_secret, redirect_uri):
-    # Scope defines the permissions you need
-    #scope = 'playlist-read-private playlist-read-collaborative'
-
-    #sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
-
-    # Now you have a Spotify instance with access to your playlists
+    
     playlistlst = []
     playlists = sp.current_user_playlists()
     for playlist in playlists['items']:
@@ -131,8 +126,7 @@ def create_recommendation_playlist(client_id, client_secret, redirect_uri, num_t
 def create_recommendation_based_on_history():
     history = get_listening_history()
     all = get_all_songs()
-    #scope = 'playlist-modify-public playlist-modify-private user-library-read'
-    #sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+    
     user_id = sp.current_user()['id']
 
     playlist_name = "uus soovitus"
