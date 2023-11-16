@@ -32,35 +32,11 @@ client_secret = os.getenv("CLIENT_SECRET")
 client_user_name = os.getenv("USER_NAME")
 redirect_uri = os.getenv("REDIRECT_URI")
 
-client_id = "af77a1c6546946ad9d3d108c9121e6aa"
-client_secret = "d4b1362cf2444e3aac9090e4ecd00383"
-client_user_name = "rainuzki"
-redirect_uri = "http://localhost:3000"
-
 token = get_token()
 
 scope = 'playlist-modify-public playlist-modify-private user-library-read'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope, requests_timeout=20))
 
-def get_auth_header(token):
-    return {"Authorization": "Bearer " + token}
-
-
-def get_auth(redirect_uri, client_id, client_secret):
-    sp_oauth = SpotifyOAuth(client_id, client_secret, redirect_uri, scope='user-library-read user-library-modify playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public')
-
-    token_info = sp_oauth.get_cached_token()
-
-    if not token_info:
-        auth_url = sp_oauth.get_authorize_url()
-        print("Open the following URL in your browser:")
-        print(auth_url)
-        response = input("Enter the URL you were redirected to: ")
-    
-        token_info = sp_oauth.get_access_token(response)
-
-    if token_info:
-        token = token_info['access_token']
 
 def get_playlists(client_id, client_secret, redirect_uri):
     
