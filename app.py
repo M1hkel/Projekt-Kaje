@@ -38,16 +38,6 @@ scope = 'playlist-modify-public playlist-modify-private user-library-read'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope, requests_timeout=20))
 
 
-def get_playlists(client_id, client_secret, redirect_uri):
-    
-    playlistlst = []
-    playlists = sp.current_user_playlists()
-    for playlist in playlists['items']:
-        playlistlst.append(playlist['name'])
-    return playlistlst
-
-
-
 def get_all_songs():   
     songlst = []
     kordus = 0
@@ -116,6 +106,7 @@ def create_recommendation_based_on_history():
         if results['tracks']['items']:
             target_seed_track = results['tracks']['items'][0]['uri']
             laulud = create_recommendation_playlist(client_id, client_secret, redirect_uri, num_tracks=2, target_seed_track=target_seed_track)
+            #kontrrolli, et laule ei ole playlistides
             while laulud[0] in all or laulud[1] in all:
                 laulud = create_recommendation_playlist(client_id, client_secret, redirect_uri, num_tracks=2, target_seed_track=target_seed_track)
             sp.user_playlist_add_tracks(user_id, playlist["id"], laulud)
