@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk  # Make sure to install the Pillow library for working with images
 import webbrowser
+
 class myGui:
     def __init__(self):
         self.root = tk.Tk()
@@ -34,20 +35,20 @@ class myGui:
         self.label1= tk.Label(row1, text = "Palun sisesta oma USER_NAME:", font = ("Arial", 14), bg="deepskyblue4", fg="white")
         self.label1.pack(side="left", padx = 10, pady = 10)
 
-        self.textbox1 = tk.Text(row1, height = 1, width = 30, font = ("Arial", 14))
-        self.textbox1.pack(side="left", padx= 10, pady= 10)
+        self.entry1 = tk.Entry(row1, font = ("Arial", 14))
+        self.entry1.pack(side="left", padx= 10, pady= 10)
 
         self.label2= tk.Label(row2, text = "Palun sisesta oma CLIENT_ID:", bg="deepskyblue4", fg="white", font = ("Arial", 14))
         self.label2.pack(side="left", padx = 10, pady = 10)
 
-        self.textbox2 = tk.Text(row2, height = 1, width = 30, font = ("Arial", 14))
-        self.textbox2.pack(side="left", padx= 10, pady= 10)
+        self.entry2 = tk.Entry(row2, font = ("Arial", 14))
+        self.entry2.pack(side="left", padx= 10, pady= 10)
 
         self.label3= tk.Label(row3, text = "Palun sisesta oma CLIENT_SECRET:", bg="deepskyblue4", fg="white", font = ("Arial", 14))
         self.label3.pack(side="left", padx = 10, pady = 10)
 
-        self.textbox3 = tk.Text(row3, height = 1, width = 30, font = ("Arial", 14))
-        self.textbox3.pack(side="left", padx= 10, pady= 10)
+        self.entry3 = tk.Entry(row3, font = ("Arial", 14))
+        self.entry3.pack(side="left", padx= 10, pady= 10)
        
         link_button_frame = tk.Frame(row4, bg="deepskyblue4")
         link_button_frame.pack(side='left', padx=10, pady=10)
@@ -55,13 +56,13 @@ class myGui:
         self.label4= tk.Label(link_button_frame, text = "Kas sa ei tea kust neid leida?", bg="deepskyblue4", fg="white", font = ("Arial", 14))
         self.label4.pack(side="left", padx = 10, pady = 10)
 
-        self.button = tk.Button(row5, text = "Genereeri", font = ("Arial", 14), command = self.show_message)#ei kutsu funktsiooni vaid lihtsalt anname selle parameetri kui vajutame nuppu.
+        self.button = tk.Button(row5, text = "Genereeri", font = ("Arial", 14), relief="raised", borderwidth="5", command=self.get_entry_values)#ei kutsu funktsiooni vaid lihtsalt anname selle parameetri kui vajutame nuppu.
         self.button.pack(padx=10,pady=10)
 
-        self.button1 = tk.Button(link_button_frame, text="Klikka siia!", font = ("Arial", 14), command=self.show_popup)
+        self.button1 = tk.Button(link_button_frame, text="Klikka siia!", font = ("Arial", 14), relief="raised", borderwidth="5", command=self.show_popup)
         self.button1.pack(padx=10, pady=10)
 
-        self.link_button = tk.Button(link_button_frame, text="Link", font = ("Arial", 14), command=self.open_link)
+        self.link_button = tk.Button(link_button_frame, text="Link", font = ("Arial", 14), relief="raised", borderwidth="5", command=self.open_link)
         self.link_button.pack(side="left", padx=10, pady=10)
 
         self.link = "https://developer.spotify.com/"
@@ -71,9 +72,6 @@ class myGui:
     def open_link(self):
         # Open the link in the default web browser
         webbrowser.open(self.link)
-
-    def show_message(self):
-         messagebox.showinfo(title = "Sõnum", message = "Su muusika ootab sind, mine otsi Spotify'st playlist nimega uus soovitus.")
 
     def show_popup(self):
         popup = tk.Toplevel(self.root)
@@ -87,6 +85,20 @@ class myGui:
         label = tk.Label(popup, image=photo)
         label.photo = photo  # To prevent image from being garbage collected
         label.pack(padx=10, pady=10)
+
+    def get_entry_values(self):
+        # Get the values entered in the Entry widgets
+        user_name = self.entry1.get()
+        client_id = self.entry2.get()
+        client_secret = self.entry3.get()
+
+        # Use the values as needed (for example, print them)
+        print(f"User Name: {user_name}")
+        print(f"Client ID: {client_id}")
+        print(f"Client Secret: {client_secret}")
+
+        messagebox.showinfo(title = "Sõnum", message = "Su muusika ootab sind, mine otsi Spotify'st playlist nimega uus soovitus.")
+
 myGui()
 
 #Vaja kohta kuhu laul sisse kirjutada. Reference jaoks. Kui palju laule soovid ja väljundiks link selle
