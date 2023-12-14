@@ -229,25 +229,6 @@ class myGui:
 
 myGui()
 
-#Vaja kohta kuhu laul sisse kirjutada. Reference jaoks. Kui palju laule soovid ja väljundiks link selle
-#CLIENT_ID = "61bd66e0447e4f2a9f867830a28f12fc"
-#CLIENT_SECRET = "5b83f369f8624db79850410d9d845328"
-#USER_NAME = "Markus Nurmik"
-#REDIRECT_URI = "http://localhost:3000"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
