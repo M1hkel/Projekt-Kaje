@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from PIL import Image, ImageTk  # Make sure to install the Pillow library for working with images
+from PIL import Image, ImageTk
 import webbrowser
 import json
 from dotenv import load_dotenv
@@ -102,10 +102,9 @@ def create_recommendation_based_on_history():
     
     user_id = sp.current_user()['id']
 
-    playlist_name = "uus soovitus"
+    
     playlist_name = "Your song suggestions"
 
-    playlist = sp.user_playlist_create(user_id, playlist_name, public=True)
     playlist = sp.user_playlist_create(user_id, playlist_name, public=True, description="This suggestion playlist was made with Mihkel Maspanov's Spotify API app")
     for item in history.get("items", []):
         track_name = item.get("track", {}).get("name")
