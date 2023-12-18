@@ -193,7 +193,8 @@ class myGui:
     def show_popup(self):
         popup = tk.Toplevel(self.root)
         popup.title("Juhis")
-
+        img = ImageTk.PhotoImage(file="spotify.png")
+        popup.iconphoto(False, img)
         # Load your image (replace 'your_image.png' with the path to your image file)
         image = Image.open('juhis.png')
         photo = ImageTk.PhotoImage(image)
