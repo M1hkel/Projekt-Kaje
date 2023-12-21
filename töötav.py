@@ -66,7 +66,6 @@ def get_all_songs():
 
 def get_listening_history():
     global sp
-    # Fetch your recently played tracks
     history = sp.current_user_recently_played()
     return history
 
@@ -74,14 +73,11 @@ def get_listening_history():
 
 def create_recommendation_playlist(client_id, client_secret, redirect_uri, num_tracks=10, target_seed_track=None):
 
-    # If a seed track is provided, use it to generate recommendations
     seed_tracks = [target_seed_track] if target_seed_track else []
     
-    # Generate recommendations based on the seed tracks
     
     recommendations = sp.recommendations(seed_tracks=seed_tracks, limit=num_tracks)
     
-    # Extract the URIs of the recommended tracks
     
     track_uris = [track['uri'] for track in recommendations['tracks']]
 
@@ -90,7 +86,7 @@ def create_recommendation_playlist(client_id, client_secret, redirect_uri, num_t
 
 
 
-#fuck yeah
+
 def create_recommendation_based_on_history():
 
     client_id = os.getenv("CLIENT_ID")
@@ -110,7 +106,7 @@ def create_recommendation_based_on_history():
         track_name = item.get("track", {}).get("name")
         results = sp.search(q=track_name, type='track')
 
-        # Get the URI of the first track in the search results
+       
         if results['tracks']['items']:
             target_seed_track = results['tracks']['items'][0]['uri']
             laulud = create_recommendation_playlist(client_id, client_secret, redirect_uri, num_tracks=2, target_seed_track=target_seed_track)
@@ -120,7 +116,7 @@ def create_recommendation_based_on_history():
             sp.user_playlist_add_tracks(user_id, playlist["id"], laulud)
 
 
-class myGui:
+class myGui:    
     def __init__(self):
         self.root = tk.Tk()
         self.root.configure(bg="deepskyblue4")
@@ -187,7 +183,6 @@ class myGui:
         self.root.mainloop()
 
     def open_link(self):
-        # Open the link in the default web browser
         webbrowser.open(self.link)
 
     def show_popup(self):
@@ -195,20 +190,17 @@ class myGui:
         popup.title("Juhis")
         img = ImageTk.PhotoImage(file="spotify.png")
         popup.iconphoto(False, img)
-        # Load your image (replace 'your_image.png' with the path to your image file)
         image = Image.open('juhis.png')
         photo = ImageTk.PhotoImage(image)
 
-        # Display the image on the popup
         label = tk.Label(popup, image=photo)
-        label.photo = photo  # To prevent image from being garbage collected
+        label.photo = photo  
         label.pack(padx=10, pady=10)
 
     def get_entry_values(self):
         client_id = os.getenv("CLIENT_ID")
         client_secret = os.getenv("CLIENT_SECRET")
         redirect_uri = os.getenv("REDIRECT_URI")
-        # Get the values entered in the Entry widgets
         user_name = self.entry1.get()
         os.environ["USER_NAME"] = user_name
         client_id = self.entry2.get()
@@ -225,7 +217,7 @@ class myGui:
 
         
 
-        messagebox.showinfo(title = "Sõnum", message = "Su muusika ootab sind, mine otsi Spotify'st playlist nimega uus soovitus.")
+        messagebox.showinfo(title = "Sõnum", message = "Su muusika ootab sind, mine otsi Spotify'st playlist nimega Your song suggestions.")
 
 myGui()
 
