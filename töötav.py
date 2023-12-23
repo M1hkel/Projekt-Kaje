@@ -222,5 +222,5 @@ class myGui:
 myGui()
 
 
-
+os.remove(".cache")
 
